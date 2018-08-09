@@ -65,17 +65,20 @@
             this.lInfoName = new System.Windows.Forms.Label();
             this.lInfo = new System.Windows.Forms.Label();
             this.tb = new System.Windows.Forms.ToolStrip();
+            this.aViewGoToUpOneLevel = new System.Windows.Forms.ToolStripButton();
+            this.aTreeGoToRoot = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.aViewPercent = new System.Windows.Forms.ToolStripButton();
             this.aViewMS = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.aViewFullPath = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.imageListtb = new System.Windows.Forms.ImageList(this.components);
             this.aViewHideFastFuncs = new System.Windows.Forms.ToolStripButton();
             this.aViewHideLibFuncs = new System.Windows.Forms.ToolStripButton();
-            this.aViewGoToUpOneLevel = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.aTreeGoToRoot = new System.Windows.Forms.ToolStripButton();
+            this.imageListtb = new System.Windows.Forms.ImageList(this.components);
+            this.label1 = new System.Windows.Forms.Label();
+            this.cbFind = new System.Windows.Forms.ComboBox();
+            this.cbRE = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -204,6 +207,9 @@
             // 
             // tsMerged
             // 
+            this.tsMerged.Controls.Add(this.cbRE);
+            this.tsMerged.Controls.Add(this.cbFind);
+            this.tsMerged.Controls.Add(this.label1);
             this.tsMerged.Controls.Add(this.lvMergedInstances);
             this.tsMerged.Controls.Add(this.panel3);
             this.tsMerged.Controls.Add(this.lvMerged);
@@ -226,9 +232,9 @@
             this.columnHeader4,
             this.columnHeader5,
             this.columnHeader6});
-            this.lvMergedInstances.Location = new System.Drawing.Point(0, 211);
+            this.lvMergedInstances.Location = new System.Drawing.Point(0, 229);
             this.lvMergedInstances.Name = "lvMergedInstances";
-            this.lvMergedInstances.Size = new System.Drawing.Size(492, 124);
+            this.lvMergedInstances.Size = new System.Drawing.Size(492, 106);
             this.lvMergedInstances.TabIndex = 2;
             this.lvMergedInstances.UseCompatibleStateImageBehavior = false;
             this.lvMergedInstances.View = System.Windows.Forms.View.Details;
@@ -288,9 +294,9 @@
             this.TotalCum,
             this.Calls});
             this.lvMerged.LargeImageList = this.imageListtv;
-            this.lvMerged.Location = new System.Drawing.Point(0, 0);
+            this.lvMerged.Location = new System.Drawing.Point(0, 33);
             this.lvMerged.Name = "lvMerged";
-            this.lvMerged.Size = new System.Drawing.Size(492, 198);
+            this.lvMerged.Size = new System.Drawing.Size(492, 199);
             this.lvMerged.TabIndex = 0;
             this.lvMerged.UseCompatibleStateImageBehavior = false;
             this.lvMerged.View = System.Windows.Forms.View.Details;
@@ -396,6 +402,31 @@
             this.tb.TabIndex = 1;
             this.tb.Text = "toolStrip1";
             // 
+            // aViewGoToUpOneLevel
+            // 
+            this.aViewGoToUpOneLevel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.aViewGoToUpOneLevel.Image = ((System.Drawing.Image)(resources.GetObject("aViewGoToUpOneLevel.Image")));
+            this.aViewGoToUpOneLevel.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.aViewGoToUpOneLevel.Name = "aViewGoToUpOneLevel";
+            this.aViewGoToUpOneLevel.Size = new System.Drawing.Size(23, 22);
+            this.aViewGoToUpOneLevel.Text = "Up One Level";
+            this.aViewGoToUpOneLevel.Click += new System.EventHandler(this.aViewGoToUpOneLevel_Click);
+            // 
+            // aTreeGoToRoot
+            // 
+            this.aTreeGoToRoot.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.aTreeGoToRoot.Image = ((System.Drawing.Image)(resources.GetObject("aTreeGoToRoot.Image")));
+            this.aTreeGoToRoot.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.aTreeGoToRoot.Name = "aTreeGoToRoot";
+            this.aTreeGoToRoot.Size = new System.Drawing.Size(23, 22);
+            this.aTreeGoToRoot.Text = "Go To Root";
+            this.aTreeGoToRoot.Click += new System.EventHandler(this.aTreeGoToRoot_Click);
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
+            // 
             // aViewPercent
             // 
             this.aViewPercent.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -438,21 +469,6 @@
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
             // 
-            // imageListtb
-            // 
-            this.imageListtb.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageListtb.ImageStream")));
-            this.imageListtb.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageListtb.Images.SetKeyName(0, "Time_16x.png");
-            this.imageListtb.Images.SetKeyName(1, "Time_16x_32.bmp");
-            this.imageListtb.Images.SetKeyName(2, "Percentage_16x.png");
-            this.imageListtb.Images.SetKeyName(3, "Percentage_16x_32.bmp");
-            this.imageListtb.Images.SetKeyName(4, "NavigationPath_16x.png");
-            this.imageListtb.Images.SetKeyName(5, "NavigationPath_16x_32.bmp");
-            this.imageListtb.Images.SetKeyName(6, "HiddenFolder_16x.png");
-            this.imageListtb.Images.SetKeyName(7, "HiddenFolder_16x_32.bmp");
-            this.imageListtb.Images.SetKeyName(8, "MethodPrivate_16x.png");
-            this.imageListtb.Images.SetKeyName(9, "MethodPrivate_16x_32.bmp");
-            // 
             // aViewHideFastFuncs
             // 
             this.aViewHideFastFuncs.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -473,30 +489,53 @@
             this.aViewHideLibFuncs.Text = "Hide Library Functions";
             this.aViewHideLibFuncs.Click += new System.EventHandler(this.aViewHideLibFuncs_Click);
             // 
-            // aViewGoToUpOneLevel
+            // imageListtb
             // 
-            this.aViewGoToUpOneLevel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.aViewGoToUpOneLevel.Image = ((System.Drawing.Image)(resources.GetObject("aViewGoToUpOneLevel.Image")));
-            this.aViewGoToUpOneLevel.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.aViewGoToUpOneLevel.Name = "aViewGoToUpOneLevel";
-            this.aViewGoToUpOneLevel.Size = new System.Drawing.Size(23, 22);
-            this.aViewGoToUpOneLevel.Text = "Up One Level";
-            this.aViewGoToUpOneLevel.Click += new System.EventHandler(this.aViewGoToUpOneLevel_Click);
+            this.imageListtb.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageListtb.ImageStream")));
+            this.imageListtb.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageListtb.Images.SetKeyName(0, "Time_16x.png");
+            this.imageListtb.Images.SetKeyName(1, "Time_16x_32.bmp");
+            this.imageListtb.Images.SetKeyName(2, "Percentage_16x.png");
+            this.imageListtb.Images.SetKeyName(3, "Percentage_16x_32.bmp");
+            this.imageListtb.Images.SetKeyName(4, "NavigationPath_16x.png");
+            this.imageListtb.Images.SetKeyName(5, "NavigationPath_16x_32.bmp");
+            this.imageListtb.Images.SetKeyName(6, "HiddenFolder_16x.png");
+            this.imageListtb.Images.SetKeyName(7, "HiddenFolder_16x_32.bmp");
+            this.imageListtb.Images.SetKeyName(8, "MethodPrivate_16x.png");
+            this.imageListtb.Images.SetKeyName(9, "MethodPrivate_16x_32.bmp");
             // 
-            // toolStripSeparator3
+            // label1
             // 
-            this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
+            this.label1.Image = ((System.Drawing.Image)(resources.GetObject("label1.Image")));
+            this.label1.ImageAlign = System.Drawing.ContentAlignment.BottomLeft;
+            this.label1.Location = new System.Drawing.Point(7, 7);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(49, 23);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "Find:";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // aTreeGoToRoot
+            // cbFind
             // 
-            this.aTreeGoToRoot.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.aTreeGoToRoot.Image = ((System.Drawing.Image)(resources.GetObject("aTreeGoToRoot.Image")));
-            this.aTreeGoToRoot.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.aTreeGoToRoot.Name = "aTreeGoToRoot";
-            this.aTreeGoToRoot.Size = new System.Drawing.Size(23, 22);
-            this.aTreeGoToRoot.Text = "Go To Root";
-            this.aTreeGoToRoot.Click += new System.EventHandler(this.aTreeGoToRoot_Click);
+            this.cbFind.FormattingEnabled = true;
+            this.cbFind.Items.AddRange(new object[] {
+            "^(include|require|include_once|require_once)::",
+            "^php::",
+            "^pear::"});
+            this.cbFind.Location = new System.Drawing.Point(63, 7);
+            this.cbFind.Name = "cbFind";
+            this.cbFind.Size = new System.Drawing.Size(209, 21);
+            this.cbFind.TabIndex = 4;
+            // 
+            // cbRE
+            // 
+            this.cbRE.AutoSize = true;
+            this.cbRE.Location = new System.Drawing.Point(278, 13);
+            this.cbRE.Name = "cbRE";
+            this.cbRE.Size = new System.Drawing.Size(117, 17);
+            this.cbRE.TabIndex = 5;
+            this.cbRE.Text = "Regular Expression";
+            this.cbRE.UseVisualStyleBackColor = true;
             // 
             // FDoc
             // 
@@ -514,6 +553,7 @@
             this.tabControl1.ResumeLayout(false);
             this.tsLBL.ResumeLayout(false);
             this.tsMerged.ResumeLayout(false);
+            this.tsMerged.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             this.panel2.ResumeLayout(false);
@@ -574,5 +614,8 @@
         private System.Windows.Forms.ToolStripButton aViewGoToUpOneLevel;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripButton aTreeGoToRoot;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.CheckBox cbRE;
+        private System.Windows.Forms.ComboBox cbFind;
     }
 }

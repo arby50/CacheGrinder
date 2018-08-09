@@ -76,6 +76,11 @@ namespace WinCacheGrind2
             _toolStripMenuItemClick("aViewMS_Click", sender, e);
         }
 
+        private void FindToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            _toolStripMenuItemClick("aViewMS_Click", sender, e);
+        }
+
         private void PercentToolStripMenuItem_Click(object sender, EventArgs e)
         {
             _toolStripMenuItemClick("aViewPercent_Click", sender, e);

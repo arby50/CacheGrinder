@@ -47,7 +47,7 @@
             this.explorerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.refreshExplorerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.profilerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.findToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.findToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.millisecondsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.percentageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -214,7 +214,7 @@
             // profilerToolStripMenuItem
             // 
             this.profilerToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.findToolStripMenuItem1,
+            this.findToolStripMenuItem,
             this.toolStripSeparator6,
             this.millisecondsToolStripMenuItem,
             this.percentageToolStripMenuItem,
@@ -230,11 +230,12 @@
             this.profilerToolStripMenuItem.Size = new System.Drawing.Size(57, 20);
             this.profilerToolStripMenuItem.Text = "Profiler";
             // 
-            // findToolStripMenuItem1
+            // findToolStripMenuItem
             // 
-            this.findToolStripMenuItem1.Name = "findToolStripMenuItem1";
-            this.findToolStripMenuItem1.Size = new System.Drawing.Size(193, 22);
-            this.findToolStripMenuItem1.Text = "Find";
+            this.findToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("findToolStripMenuItem.Image")));
+            this.findToolStripMenuItem.Name = "findToolStripMenuItem";
+            this.findToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
+            this.findToolStripMenuItem.Text = "Find";
             // 
             // toolStripSeparator6
             // 
@@ -495,7 +496,7 @@
         private System.Windows.Forms.TabControl tabControl2;
         private System.Windows.Forms.ImageList imageListForm1;
         private System.Windows.Forms.ToolStripMenuItem profilerToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem findToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem findToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
         private System.Windows.Forms.ToolStripMenuItem millisecondsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem percentageToolStripMenuItem;

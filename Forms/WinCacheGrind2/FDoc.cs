@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using cacher;
+using System.Text.RegularExpressions;
 
 namespace WinCacheGrind2
 {
@@ -42,6 +43,9 @@ namespace WinCacheGrind2
             lvMergedInstancesColumnSorter.SortColumn = 0;   //1st column: num
             lvMergedInstancesColumnSorter.Order = SortOrder.Ascending;
             lvMergedInstances.ListViewItemSorter = lvMergedInstancesColumnSorter;
+            cbRE.Click += cbREClick;
+            cbFind.SelectedIndexChanged += CbFind_SelectedIndexChanged;
+            cbFind.TextChanged += CbFind_TextChanged;
             //imagelist for tb actionbar
             tb.ImageList = this.imageListtb;
 
@@ -49,6 +53,23 @@ namespace WinCacheGrind2
             SyncTree();
             tv.SelectedNode = tv.Nodes[0].FirstNode;
             Tv_NodeMouseClick(null, new TreeNodeMouseClickEventArgs(tv.Nodes[0], new MouseButtons(), 0, 0, 0));
+        }
+
+        private void CbFind_TextChanged(object sender, EventArgs e)
+        {
+            TProfInstance Inst = null;
+            FindInst(tv.SelectedNode.Text, cache.Root, ref Inst);
+            RefreshListMerged(Inst);
+        }
+
+        private void CbFind_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            CbFind_TextChanged(sender, e);
+        }
+
+        private void cbREClick(object sender, EventArgs e)
+        {
+            CbFind_TextChanged(sender, e);
         }
 
         private void Tv_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
@@ -112,7 +133,7 @@ namespace WinCacheGrind2
                     FListLBL.Add(Inst);//FlistLBL needs to be a datasource
                 }
             }
-            //TODO: sort function
+            //TODO: sort functions
             /*
             if (ListLBLSort <> lsLine)
             {
@@ -127,15 +148,11 @@ namespace WinCacheGrind2
 
         private void RefreshListMerged(TProfInstance Parent)
         {
-            CheckBox cbRE = new CheckBox(); cbRE.Checked = false;//TODO: get rid of this, move it to the form
-            TextBox cbFind = new TextBox(); cbFind.Text = string.Empty;//TODO: get rid of this, move it to the form
-
             TProfFunc Func;
             string LastInst;
-            int I;
             string Q;
             bool Delete;
-            System.Text.RegularExpressions.Regex RE;
+            System.Text.RegularExpressions.Regex RE = null;
             double SumSelf;
             double SumSelfPercent;
             int SumCalls;
@@ -155,72 +172,73 @@ namespace WinCacheGrind2
 
             if (cbRE.Checked)
             {
-                /* TODO: implement REGEX
-                RE.ModifierI := True;
-        Q := cbFind.Text;
-        if Q<> '' then begin
-          try
-            RE.Expression := Q;
-                RE.Compile;
-                except
-                  Q := '';
-                lFind.Caption := 'Pattern invalid';
-                lFind.Visible := True;
-                end;
-                end;
-                */
+                Q = cbFind.Text;
+                if (!String.IsNullOrEmpty(Q))
+                {
+                    try
+                    {
+                        RE = new System.Text.RegularExpressions.Regex(Q, RegexOptions.IgnoreCase);
+                    }
+                    catch (Exception)
+                    {
+                        Q = string.Empty;
+                        //TODO: show proper error in lFind
+                        //lFind.Caption := 'Pattern invalid';
+                        //lFind.Visible := True;
+                    }
+                }
             }
             else
             {
                 Q = cbFind.Text.Trim().ToLower();
-                for (int i = FListMerged.Count - 1; i > -1; i--)
+            }
+            for (int i = FListMerged.Count - 1; i > -1; i--)
+            {
+                Func = FListMerged[i];
+                // filtering
+                Delete = false;
+                // filter for hide funcs
+                if (config.HideLibFuncs && (Func.Kind == TFuncKind.fkLibFunc))
                 {
-                    Func = FListMerged[i];
-                    // filtering
-                    Delete = false;
-                    // filter for hide funcs
-                    if (config.HideLibFuncs && (Func.Kind == TFuncKind.fkLibFunc))
+                    Delete = true;
+                }
+                // hide fast funcs
+                else if (config.HideFastFuncs && (Func.TotCumTime < config.FastThreshold))
+                {
+                    Delete = true;
+                }
+                // find
+                else if (Q != "")
+                {
+                    if (cbRE.Checked)
                     {
-                        Delete = true;
-                    }
-                    // hide fast funcs
-                    else if (config.HideFastFuncs && (Func.TotCumTime < config.FastThreshold))
-                    {
-                        Delete = true;
-                    }
-                    // find
-                    else if (Q != "")
-                    {
-                        if (cbRE.Checked)
+                        Match m = RE.Match(Func.Name);
+                        if (!m.Success)
                         {
-                            /*TODO: implement regex
-                            if (!RE.Exec(Func.Name))
-                            {
-                                Delete = true;
-                            }
-                            */
+                            Delete = true;
                         }
-                        else
-                        {
-                            if (Func.Name.ToLower().IndexOf(Q) <= 0)
-                            {
-                                Delete = true;
-                            }
-                        }
-                    }
-                    if (Delete)
-                    {
-                        FListMerged.RemoveAt(i);
                     }
                     else
                     {
-                        // calculate sum
-                        SumSelf = SumSelf + Func.TotSelfTime;
-                        SumSelfPercent = SumSelfPercent + Func.TotSelfPercent;
-                        SumCalls = SumCalls + Func.InstanceCount;
+                        if (Func.Name.ToLower().IndexOf(Q) <= 0)
+                        {
+                            Delete = true;
+                        }
                     }
                 }
+                if (Delete)
+                {
+                    FListMerged.RemoveAt(i);
+                }
+                else
+                {
+                    // calculate sum
+                    SumSelf = SumSelf + Func.TotSelfTime;
+                    SumSelfPercent = SumSelfPercent + Func.TotSelfPercent;
+                    SumCalls = SumCalls + Func.InstanceCount;
+                }
             }
+
             // ok, continue
             //FListMerged.Sort(MergedSort); //TODO: sort
             //lvMerged.Items.Count := FListMerged.Count;
