@@ -121,6 +121,9 @@ namespace cacher
             return Inst;
         }
 
+        public TProfFunc()
+        { }
+
         public TProfFunc(TCacheGrind ACacheGrind, string AName, string AFileName)
         {
             CacheGrind = ACacheGrind;

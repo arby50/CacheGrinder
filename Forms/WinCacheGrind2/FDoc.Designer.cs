@@ -42,6 +42,10 @@
             this.File = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.CalledFrom = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tsMerged = new System.Windows.Forms.TabPage();
+            this.bExport = new System.Windows.Forms.Button();
+            this.cbRE = new System.Windows.Forms.CheckBox();
+            this.cbFind = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.lvMergedInstances = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -76,9 +80,6 @@
             this.aViewHideFastFuncs = new System.Windows.Forms.ToolStripButton();
             this.aViewHideLibFuncs = new System.Windows.Forms.ToolStripButton();
             this.imageListtb = new System.Windows.Forms.ImageList(this.components);
-            this.label1 = new System.Windows.Forms.Label();
-            this.cbFind = new System.Windows.Forms.ComboBox();
-            this.cbRE = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -207,6 +208,7 @@
             // 
             // tsMerged
             // 
+            this.tsMerged.Controls.Add(this.bExport);
             this.tsMerged.Controls.Add(this.cbRE);
             this.tsMerged.Controls.Add(this.cbFind);
             this.tsMerged.Controls.Add(this.label1);
@@ -220,6 +222,49 @@
             this.tsMerged.TabIndex = 1;
             this.tsMerged.Text = "Overall";
             this.tsMerged.UseVisualStyleBackColor = true;
+            // 
+            // bExport
+            // 
+            this.bExport.Location = new System.Drawing.Point(402, 6);
+            this.bExport.Name = "bExport";
+            this.bExport.Size = new System.Drawing.Size(75, 23);
+            this.bExport.TabIndex = 6;
+            this.bExport.Text = "Export";
+            this.bExport.UseVisualStyleBackColor = true;
+            this.bExport.Click += new System.EventHandler(this.Export_Click);
+            // 
+            // cbRE
+            // 
+            this.cbRE.AutoSize = true;
+            this.cbRE.Location = new System.Drawing.Point(278, 13);
+            this.cbRE.Name = "cbRE";
+            this.cbRE.Size = new System.Drawing.Size(117, 17);
+            this.cbRE.TabIndex = 5;
+            this.cbRE.Text = "Regular Expression";
+            this.cbRE.UseVisualStyleBackColor = true;
+            // 
+            // cbFind
+            // 
+            this.cbFind.FormattingEnabled = true;
+            this.cbFind.Items.AddRange(new object[] {
+            "^(include|require|include_once|require_once)::",
+            "^php::",
+            "^pear::"});
+            this.cbFind.Location = new System.Drawing.Point(63, 7);
+            this.cbFind.Name = "cbFind";
+            this.cbFind.Size = new System.Drawing.Size(209, 21);
+            this.cbFind.TabIndex = 4;
+            // 
+            // label1
+            // 
+            this.label1.Image = ((System.Drawing.Image)(resources.GetObject("label1.Image")));
+            this.label1.ImageAlign = System.Drawing.ContentAlignment.BottomLeft;
+            this.label1.Location = new System.Drawing.Point(7, 7);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(49, 23);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "Find:";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // lvMergedInstances
             // 
@@ -504,39 +549,6 @@
             this.imageListtb.Images.SetKeyName(8, "MethodPrivate_16x.png");
             this.imageListtb.Images.SetKeyName(9, "MethodPrivate_16x_32.bmp");
             // 
-            // label1
-            // 
-            this.label1.Image = ((System.Drawing.Image)(resources.GetObject("label1.Image")));
-            this.label1.ImageAlign = System.Drawing.ContentAlignment.BottomLeft;
-            this.label1.Location = new System.Drawing.Point(7, 7);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(49, 23);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "Find:";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // cbFind
-            // 
-            this.cbFind.FormattingEnabled = true;
-            this.cbFind.Items.AddRange(new object[] {
-            "^(include|require|include_once|require_once)::",
-            "^php::",
-            "^pear::"});
-            this.cbFind.Location = new System.Drawing.Point(63, 7);
-            this.cbFind.Name = "cbFind";
-            this.cbFind.Size = new System.Drawing.Size(209, 21);
-            this.cbFind.TabIndex = 4;
-            // 
-            // cbRE
-            // 
-            this.cbRE.AutoSize = true;
-            this.cbRE.Location = new System.Drawing.Point(278, 13);
-            this.cbRE.Name = "cbRE";
-            this.cbRE.Size = new System.Drawing.Size(117, 17);
-            this.cbRE.TabIndex = 5;
-            this.cbRE.Text = "Regular Expression";
-            this.cbRE.UseVisualStyleBackColor = true;
-            // 
             // FDoc
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -617,5 +629,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.CheckBox cbRE;
         private System.Windows.Forms.ComboBox cbFind;
+        private System.Windows.Forms.Button bExport;
     }
 }

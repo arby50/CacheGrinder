@@ -10,6 +10,10 @@ using System.Windows.Forms;
 
 using cacher;
 using System.Text.RegularExpressions;
+using System.Xml.Serialization;
+using System.IO;
+using System.Xml;
+using System.Xml.XPath;
 
 namespace WinCacheGrind2
 {
@@ -144,6 +148,53 @@ namespace WinCacheGrind2
             //SelectListItem(lvLBL, 0);
             SelectLBLInstance(LastInst);
             lvLBLInvalidate();   //rebind            
+        }
+
+        private void ExportListMerged()
+        {
+            XmlDocument doc = new XmlDocument();
+            XmlElement root = doc.CreateElement("root");
+            doc.AppendChild(root);
+
+            foreach (TProfFunc func in FListMerged)
+            {
+                XmlNode newBook = doc.ImportNode(SerializeToXmlElement(func), true);
+                doc.DocumentElement.AppendChild(newBook);
+            }
+
+            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+            saveFileDialog1.Filter = "XML Document|*.xml";
+            saveFileDialog1.Title = "Save an XML File";
+            saveFileDialog1.FileName = string.Concat(cache.Root.ShortFileName, ".xml");
+            saveFileDialog1.ShowDialog();
+
+            // If the file name is not an empty string open it for saving.  
+            if (saveFileDialog1.FileName != "")
+            {
+                // Saves the Image via a FileStream created by the OpenFile method.  
+                System.IO.FileStream fs =
+                   (System.IO.FileStream)saveFileDialog1.OpenFile();
+                doc.Save(fs);
+                fs.Close();
+            }
+        
+    }
+
+        public XmlElement SerializeToXmlElement(object o)
+        {
+            XmlDocument doc = new XmlDocument();
+            XmlAttributeOverrides overrides = new XmlAttributeOverrides();
+            XmlAttributes attribs = new XmlAttributes();
+            attribs.XmlIgnore = true;
+            attribs.XmlElements.Add(new XmlElementAttribute("YourElementName"));
+            overrides.Add(typeof(TProfFunc), "CacheGrind", attribs);
+            overrides.Add(typeof(TProfFunc), "Instances", attribs);
+            using (XmlWriter writer = doc.CreateNavigator().AppendChild())
+            {
+                new XmlSerializer(o.GetType(), overrides).Serialize(writer, o);
+            }
+
+            return doc.DocumentElement;
         }
 
         private void RefreshListMerged(TProfInstance Parent)
@@ -786,6 +837,11 @@ namespace WinCacheGrind2
             tv.SelectedNode = tv.Nodes[0];
             FindInst(tv.SelectedNode.Text, cache.Root, ref CurrentInst);
             RefreshLists(CurrentInst);
+        }
+
+        public void Export_Click(object sender, EventArgs e)
+        {
+            ExportListMerged();
         }
     }
     public enum tActionBarImageIndex

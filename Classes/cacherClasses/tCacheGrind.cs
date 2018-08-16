@@ -106,6 +106,7 @@ namespace cacher
             string key;
 
             /*
+             * 
                 var
                   id: string;
                 key: string;
